@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import Wallets from './components/Wallets';
+import Trades from './components/Trades';
+import Tokens from './components/Tokens';
+import Pairs from './components/Pairs';
+import './App.css'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="layout">
+      <nav className="navbar">
+        <ul>
+          <li><NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>Wallets</NavLink></li>
+          <li><NavLink to="/trades" className={({ isActive }) => (isActive ? 'active' : '')}>Trades</NavLink></li>
+          <li><NavLink to="/tokens" className={({ isActive }) => (isActive ? 'active' : '')}>Tokens</NavLink></li>
+          <li><NavLink to="/pairs" className={({ isActive }) => (isActive ? 'active' : '')}>Pairs</NavLink></li>
+        </ul>
+      </nav>
+
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Wallets />} />
+            <Route path="/trades" element={<Trades />} />
+            <Route path="/tokens" element={<Tokens />} />
+            <Route path="/pairs" element={<Pairs />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
