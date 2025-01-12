@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ReusableTable.css';
 
-const ReusableTable = ({ columns, data, displayedColumns }) => {
+const ReusableTable = ({ columns, data, displayedColumns, onRowClick }) => {
   const [filters, setFilters] = useState(
     columns.reduce((acc, column) => {
       const columnType = column.type || 'string';
@@ -12,10 +12,7 @@ const ReusableTable = ({ columns, data, displayedColumns }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [hoveredRow, setHoveredRow] = useState(null);
 
-  // Default to showing all columns if displayedColumns is not provided
   const visibleColumns = displayedColumns?.length ? displayedColumns : columns.map((col) => col.key);
-
-  // Derive tooltip columns (hidden columns)
   const tooltipColumns = columns.filter((column) => !visibleColumns.includes(column.key));
 
   const handleStringFilterChange = (key, value) => {
@@ -55,6 +52,8 @@ const ReusableTable = ({ columns, data, displayedColumns }) => {
       return true;
     })
   );
+
+  const clickableRows = !!onRowClick;
 
   return (
     <div className="table-container">
@@ -129,15 +128,13 @@ const ReusableTable = ({ columns, data, displayedColumns }) => {
                 key={row.id || index}
                 onMouseEnter={() => setHoveredRow(index)}
                 onMouseLeave={() => setHoveredRow(null)}
-                className="row-hover"
+                className={`row-hover ${clickableRows ? 'clickable' : ''}`}
+                onClick={() => clickableRows && onRowClick(row)}
               >
-                {/* Render visible columns */}
                 {visibleColumns.map((columnKey) => {
                   const column = columns.find((col) => col.key === columnKey);
                   return <td key={column.key}>{row[column.key]}</td>;
                 })}
-
-                {/* Tooltip for hidden columns */}
                 {hoveredRow === index && tooltipColumns.length > 0 && (
                   <div className="tooltip">
                     {tooltipColumns.map((col) => (

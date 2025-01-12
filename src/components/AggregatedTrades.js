@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getAggregatedTrades } from '../services/api';
 import ReusableTable from './common/ReusableTable';
-import { type } from '@testing-library/user-event/dist/type';
+import { useNavigate } from 'react-router-dom';
 
 const AggregatedTrades = () => {
   const [trades, setTrades] = useState([]);
-  const [filterPair, setFilterPair] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTrades();
@@ -16,13 +16,9 @@ const AggregatedTrades = () => {
     setTrades(data.agg_trades); // Accessing `agg_trades` from the response
   };
 
-  const handleFilterChange = (e) => {
-    setFilterPair(e.target.value);
+  const handleRowClick = (trade) => {
+    navigate(`/agg-trades/${trade.pair_id}`); // Navigate to the details route
   };
-
-  const filteredTrades = trades.filter((trade) =>
-    trade.pair.toLowerCase().includes(filterPair.toLowerCase())
-  );
 
   const displayedColumns = ['pair', 'available_quantity', 'pnl_percent', 'pnl_native', 'pnl_USD', 'status']
 
@@ -50,18 +46,13 @@ const AggregatedTrades = () => {
     <div>
       <h1>Aggregated Trades</h1>
 
-      {/* Filter by Pair */}
-      <div>
-        <input
-          type="text"
-          placeholder="Filter by Pair"
-          value={filterPair}
-          onChange={handleFilterChange}
-        />
-      </div>
-
       {/* Display Trades */}
-      <ReusableTable columns={columns} data={filteredTrades} displayedColumns={displayedColumns} additionalData={tooltips}/>
+      <ReusableTable 
+        columns={columns} 
+        data={trades} 
+        displayedColumns={displayedColumns} 
+        additionalData={tooltips}
+        onRowClick={handleRowClick}/>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Tokens from './components/Tokens';
 import Pairs from './components/Pairs';
 import './App.css'
 import AggregatedTrades from './components/AggregatedTrades';
+import AggregatedTradeDetails from './components/AggregatedTradeDetails';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/tokens" element={<Tokens />} />
             <Route path="/pairs" element={<Pairs />} />
             <Route path="/agg-trades" element={<AggregatedTrades />} />
+            <Route path="/agg-trades/:pair_id" element={<AggregatedTradeDetails />} />
           </Routes>
         </main>
       </div>

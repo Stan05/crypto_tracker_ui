@@ -57,3 +57,7 @@ export const getAggregatedTrades = async () => {
   const response = await apiClient.get('/aggregated-trades'); 
   return response.data;
 };
+
+export const getAggregatedTrade = async (pairId) => {
+  return apiClient.get(`/aggregated-trades/${pairId}`).then((res) => res.data);
+};
