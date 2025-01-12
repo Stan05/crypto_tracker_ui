@@ -51,3 +51,9 @@ export const addPair = async (trade) => {
   const response = await apiClient.post('/pairs', trade);
   return response.data;
 };
+
+// Agg Trades APIs
+export const getAggregatedTrades = async () => {
+  const response = await apiClient.get('/aggregated-trades'); 
+  return response.data;
+};

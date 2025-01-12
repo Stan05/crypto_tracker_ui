@@ -5,6 +5,7 @@ import Trades from './components/Trades';
 import Tokens from './components/Tokens';
 import Pairs from './components/Pairs';
 import './App.css'
+import AggregatedTrades from './components/AggregatedTrades';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <li><NavLink to="/trades" className={({ isActive }) => (isActive ? 'active' : '')}>Trades</NavLink></li>
           <li><NavLink to="/tokens" className={({ isActive }) => (isActive ? 'active' : '')}>Tokens</NavLink></li>
           <li><NavLink to="/pairs" className={({ isActive }) => (isActive ? 'active' : '')}>Pairs</NavLink></li>
+          <li><NavLink to="/agg-trades" className={({ isActive }) => (isActive ? 'active' : '')}>Aggregated Trades</NavLink></li>
         </ul>
       </nav>
 
@@ -25,6 +27,7 @@ const App = () => {
             <Route path="/trades" element={<Trades />} />
             <Route path="/tokens" element={<Tokens />} />
             <Route path="/pairs" element={<Pairs />} />
+            <Route path="/agg-trades" element={<AggregatedTrades />} />
           </Routes>
         </main>
       </div>

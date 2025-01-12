@@ -4,7 +4,7 @@ import ReusableTable from './common/ReusableTable';
 
 const Tokens = () => {
   const [tokens, setTokens] = useState([]);
-  const [newToken, setNewToken] = useState({ name: '', symbol: '', address: '', chain_id: '' });
+  const [newToken, setNewToken] = useState({ name: '', symbol: '', address: '' });
 
   useEffect(() => {
     fetchTokens();
@@ -17,7 +17,7 @@ const Tokens = () => {
 
   const handleAddToken = async () => {
     await addToken(newToken);
-    setNewToken({ name: '', symbol: '', address: '', chain_id: '' });
+    setNewToken({ name: '', symbol: '', address: '' });
     fetchTokens(); // Refresh the token list
   };
 
@@ -25,7 +25,6 @@ const Tokens = () => {
     { key: 'name', label: 'Name' },
     { key: 'symbol', label: 'Symbol' },
     { key: 'address', label: 'Address' },
-    { key: 'chain_id', label: 'Chain Id' },
   ];
   return (
     <div>
@@ -50,12 +49,6 @@ const Tokens = () => {
           placeholder="Address"
           value={newToken.address}
           onChange={(e) => setNewToken({ ...newToken, address: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Chain ID"
-          value={newToken.chain_id}
-          onChange={(e) => setNewToken({ ...newToken, chain_id: e.target.value })}
         />
         <button onClick={handleAddToken}>Add Token</button>
       </div>
